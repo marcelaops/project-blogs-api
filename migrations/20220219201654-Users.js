@@ -1,3 +1,4 @@
+// Ajuda dos colegas Ricardo e Felipe para construir as migrattions e os models.
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {

@@ -1,36 +1,13 @@
-const { DataTypes } = require('sequelize');
-
-const attributes = {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER,
-  },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  content: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  userId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  published: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-  updated: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
-};
-
-module.exports = (sequelize) => {
-  const BlogPost = sequelize.define('BlogPost', attributes);
+module.exports = (sequelize, DataTypes) => {
+  const BlogPost = sequelize.define('BlogPost', {
+    title: DataTypes.STRING,
+    content: DataTypes.STRING,
+    userId: DataTypes.INTEGER,
+    published: DataTypes.DATE,
+    updated: DataTypes.DATE,
+  }, 
+  { timestamps: false },
+  { tableName: 'BlogPosts' });
 
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
