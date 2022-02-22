@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { User } = require('../models');
 const ErrorConstructor = require('../utils/ErrorConstructor');
-const { badRequest, conflict } = require('../utils/dictionaryStatusCode');
+const { badRequest, conflict, ok, created } = require('../utils/dictionaryStatusCode');
 const { generateToken } = require('./auth'); 
 
 const userSchema = Joi.object({
@@ -33,9 +33,17 @@ const create = async (displayName, email, password, image) => {
   const token = generateToken(data); 
   // console.log('token service', token);
 
-  return { code: 201, data: { token } };
+  return { code: created, data: { token } };
+};
+
+// Req 3
+const getAll = async () => {
+  const data = await User.findAll();
+
+  return { code: ok, data };
 };
 
 module.exports = {
   create,
+  getAll,
 };

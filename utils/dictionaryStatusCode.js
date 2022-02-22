@@ -7,5 +7,5 @@ module.exports = {
   serverError: 500,
   conflict: 409,
   unauthorized: 401,
-  // noContent: 204,
+  // noContent: 204;,
 };

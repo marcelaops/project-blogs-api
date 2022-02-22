@@ -1,5 +1,6 @@
 const express = require('express');
 const errorHandler = require('./middlewares/errorHandler');
+const { verifyToken } = require('./services/auth');
 
 const User = require('./controllers/user');
 const Login = require('./controllers/login');
@@ -9,7 +10,7 @@ app.use(express.json());
 
 app.post('/user', User.create); // req1
 app.post('/login', Login.login); // req2
-// app.get('/user', User.getAll); // req3
+app.get('/user', verifyToken, User.getAll); // req3
 // app.get('/user/:id', ); // req4
 // app.post('/categories', ); // req5
 // app.get('/categories', ); // req6

@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const { unauthorized } = require('../utils/dictionaryStatusCode');
+// const User = require('../models');
+
 require('dotenv').config();
 
 const jwtConfig = {
@@ -8,13 +11,43 @@ const jwtConfig = {
 
 const generateToken = (user) => jwt.sign({ user }, process.env.JWT_SECRET, jwtConfig);
 
-const verifyToken = (token) => {
+// const verifyToken = (token) => {
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//        const { user } = decoded;
+//        return user;
+//   } catch (error) {
+//        return null;
+//   }
+// };
+
+const verifyToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log('token auth', token);
+
+  if (!token) return res.status(unauthorized).json({ message: 'Token not found' });
+  
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-       const { user } = decoded;
-       return user;
+    // console.log('decoded auth', decoded);
+    // console.log('decoded.user  auth', decoded.user);
+
+    // const userEmail = decoded.user.email;
+    // console.log('userEmail auth', userEmail);
+
+    // console.log('User model em auth', User);
+
+    // const user = await User.findOne({ where: { email: userEmail } }); 
+    // console.log('user auth', user);
+
+    // req.user = user;
+
+    if (!decoded) return res.status(unauthorized).json({ message: 'Expired or invalid token' });
+
+    return next();
   } catch (error) {
-       return null;
+    console.log('error verifyUserToken1', error);
+    return res.status(unauthorized).json({ message: 'Expired or invalid token' });
   }
 };
 
