@@ -1,17 +1,16 @@
 const jwt = require('jsonwebtoken');
-
-const secret = 'seusecretdetoken';
+require('dotenv').config();
 
 const jwtConfig = {
-   expiresIn: '10d',
-    algorithm: 'HS256',
- };
+  expiresIn: '20d',
+  algorithm: 'HS256',
+};
 
-const generateToken = (user) => jwt.sign({ user }, secret, jwtConfig);
+const generateToken = (user) => jwt.sign({ user }, process.env.JWT_SECRET, jwtConfig);
 
 const verifyToken = (token) => {
   try {
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
        const { user } = decoded;
        return user;
   } catch (error) {
