@@ -6,13 +6,9 @@ const create = async (req, res, next) => {
     const { displayName, email, password, image } = req.body;
     // console.log('req.body controller', req.body);
 
-    // const user = await User.create(displayName, email, password, image);
-    // console.log('user controller', user);
-
     const { data, code } = await User.create(displayName, email, password, image);
     return res.status(code).json(data);
   } catch (error) {
-    // console.log('error controler', error);
     console.log(`POST - create user-> ${error.message}`);
     return next(error);
   }

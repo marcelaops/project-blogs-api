@@ -24,7 +24,7 @@ const create = async (displayName, email, password, image) => {
 
   if (verifyEmail) throw new ErrorConstructor(conflict, 'User already registered');
 
-  // O findOne tem essa chave dataValue. Abaixo descosntrui ela para tirar a chave id dela e conseguir colocar dentro da variável data e 
+  // O findOne tem essa chave dataValue. Abaixo descosntrui ela para tirar a chave id dela e conseguir colocar dentro da variável data
   const { dataValues: { id } } = await User.create({ displayName, email, password, image });
   const data = { id, displayName, email, image };
   
