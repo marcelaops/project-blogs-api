@@ -11,7 +11,7 @@ app.use(express.json());
 app.post('/user', User.create); // req1
 app.post('/login', Login.login); // req2
 app.get('/user', verifyToken, User.getAll); // req3
-// app.get('/user/:id', ); // req4
+// app.get('/user/:id', User.findById); // req4
 // app.post('/categories', ); // req5
 // app.get('/categories', ); // req6
 // app.post('/post', ); // req7

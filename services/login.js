@@ -25,7 +25,7 @@ const login = async (email, password) => {
   // console.log('user.dataValues login service', user.dataValues);
 
   const tokenGenerate = generateToken({ data: user }); 
-  // console.log('token generate service', tokenGenerate);
+  // console.log('token generate service', tokenGenerate)
 
   return { toke: tokenGenerate };
 };

@@ -23,13 +23,13 @@ const generateToken = (user) => jwt.sign({ user }, process.env.JWT_SECRET, jwtCo
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log('token auth', token);
+  // console.log('token auth', token);
 
   if (!token) return res.status(unauthorized).json({ message: 'Token not found' });
   
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log('decoded auth', decoded);
+    // console.log('decoded auth', decoded);sss
     // console.log('decoded.user  auth', decoded.user);
 
     // const userEmail = decoded.user.email;
@@ -43,10 +43,11 @@ const verifyToken = async (req, res, next) => {
     // req.user = user;
 
     if (!decoded) return res.status(unauthorized).json({ message: 'Expired or invalid token' });
-
+    // console.log('decoded')
+    
     return next();
   } catch (error) {
-    console.log('error verifyUserToken1', error);
+    console.log('error verifyUserToken', error);
     return res.status(unauthorized).json({ message: 'Expired or invalid token' });
   }
 };

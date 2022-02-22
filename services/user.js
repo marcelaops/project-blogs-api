@@ -43,6 +43,11 @@ const getAll = async () => {
   return { code: ok, data };
 };
 
+// Req 4
+// const findById = async (id) => {
+//   const data
+// };
+
 module.exports = {
   create,
   getAll,
