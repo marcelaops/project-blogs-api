@@ -1,5 +1,5 @@
 module.exports = {
-  // ok: 200,
+  ok: 200,
   created: 201,
   badRequest: 400,
   // invalidData: 422,

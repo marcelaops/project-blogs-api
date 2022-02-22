@@ -1,3 +1,5 @@
+// // Req 3 projeto Cookmaster
+
 // const jwt = require('jsonwebtoken');
 // const { unauthorized } = require('../utils/dictionaryStatusCode');
 // const User = require('../models');
@@ -5,7 +7,6 @@
 
 // const secret = process.env.JWT_SECRET;
 
-// // Req 3 
 // const validateJWT = async (req, res, next) => {
 //   const token = req.headers.authorization;
 //   // console.log('token validate', token); -> tá vindo ok

@@ -1,12 +1,14 @@
 const express = require('express');
-const User = require('./controllers/user');
 const errorHandler = require('./middlewares/errorHandler');
+
+const User = require('./controllers/user');
+const Login = require('./controllers/login');
 
 const app = express();
 app.use(express.json());
 
 app.post('/user', User.create); // req1
-// app.post('/login', ) // req2
+app.post('/login', Login.login); // req2
 // app.get('/user', ); // req3
 // app.get('/user/:id', ); // req4
 // app.post('/categories', ); // req5
