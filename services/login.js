@@ -18,16 +18,17 @@ const login = async (email, password) => {
   if (error) throw new ErrorConstructor(badRequest, error.message);
 
   const user = await User.findOne({ where: { email } });
+  // console.log('user login service', user);
 
   if (!user) throw new ErrorConstructor(badRequest, 'Invalid fields');
   
-  // console.log('user login service', user);
+  // console.log('user login service', user)
   // console.log('user.dataValues login service', user.dataValues);
 
   const tokenGenerate = generateToken({ data: user }); 
-  // console.log('token generate service', tokenGenerate)
+  // console.log('token generate service', tokenGenerate);
 
-  return { toke: tokenGenerate };
+  return { token: tokenGenerate };
 };
 
 module.exports = { login };

@@ -13,7 +13,7 @@ const create = async (req, res, next) => {
     return res.status(code).json(data);
   } catch (error) {
     // console.log('error controler', error);
-    console.log(`POST - create user-> ${error}`);
+    console.log(`POST - create user-> ${error.message}`);
     return next(error);
   }
 };
@@ -27,7 +27,7 @@ const getAll = async (req, res, next) => {
 
     return res.status(code).json(data);
   } catch (error) {
-    console.log(`GET - get all recipes -> ${error}`);
+    console.log(`GET - get all recipes -> ${error.message}`);
     return next(error);
   }
 };

@@ -10,7 +10,7 @@ const login = async (req, res, next) => {
 
     return res.status(ok).json(user);
   } catch (error) {
-    console.log(`POST - create login -> ${error}`);
+    console.log(`POST - create login -> ${error.message}`);
     return next(error);
   }
 };
