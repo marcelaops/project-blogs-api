@@ -1,7 +1,7 @@
 const Joi = require('joi');
 const { User } = require('../models');
 const ErrorConstructor = require('../utils/ErrorConstructor');
-const { badRequest, conflict, ok, created } = require('../utils/dictionaryStatusCode');
+const { badRequest, conflict, ok, created, notFound } = require('../utils/dictionaryStatusCode');
 const { generateToken } = require('./auth'); 
 
 const userSchema = Joi.object({
@@ -44,11 +44,17 @@ const getAll = async () => {
 };
 
 // Req 4
-// const findById = async (id) => {
-//   const data
-// };
+const findById = async (id) => {
+  const data = await User.findOne({ where: { id } });
+
+  if (!data) throw new ErrorConstructor(notFound, 'User does not exist');
+  // console.log('data findById service user', data);
+
+  return { code: ok, data };
+};
 
 module.exports = {
   create,
   getAll,
+  findById,
 };

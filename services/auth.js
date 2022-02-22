@@ -13,7 +13,6 @@ const generateToken = (user) => jwt.sign({ user }, process.env.JWT_SECRET, jwtCo
 const verifyToken = async (req, res, next) => {
   const token = req.headers.authorization;
   // console.log('token auth', token);
-
   if (!token) return res.status(unauthorized).json({ message: 'Token not found' });
   
   try {

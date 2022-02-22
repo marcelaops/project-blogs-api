@@ -1,4 +1,5 @@
 const User = require('../services/user');
+const { unauthorized } = require('../utils/dictionaryStatusCode');
 
 // Req 1
 const create = async (req, res, next) => {
@@ -28,7 +29,24 @@ const getAll = async (req, res, next) => {
   }
 };
 
+// Req 4
+const findById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { data, code } = await User.findById(id);
+
+    const token = req.headers.authorization;
+    if (!token) return res.status(unauthorized).json({ message: 'Token not found' });
+
+    return res.status(code).json(data);
+  } catch (error) {
+    console.log(`GET - find user by id -> ${error.message}`);
+    return next(error);
+  }
+};
+
 module.exports = { 
   create,
   getAll,
+  findById,
 };
