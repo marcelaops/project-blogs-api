@@ -24,7 +24,7 @@ const getAll = async (req, res, next) => {
 
     return res.status(code).json(data);
   } catch (error) {
-    console.log(`GET - get all recipes -> ${error.message}`);
+    console.log(`GET - get all users -> ${error.message}`);
     return next(error);
   }
 };
