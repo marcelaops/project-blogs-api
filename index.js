@@ -5,6 +5,7 @@ const { verifyToken } = require('./services/auth');
 const User = require('./controllers/user');
 const Login = require('./controllers/login');
 const Category = require('./controllers/categories');
+const Post = require('./controllers/post');
 
 const app = express();
 app.use(express.json());
@@ -18,7 +19,7 @@ app.get('/user/:id', verifyToken, User.findById); // req4
 app.post('/categories', verifyToken, Category.create); // req5
 app.get('/categories', verifyToken, Category.getAll); // req6
 
-// app.post('/post', ); // req7
+app.post('/post', verifyToken, Post.create); // req7
 // app.get('/post', ); // req8
 // app.get('/post/:id', ); // req9
 // app.put('/post/:id', ); // req10
