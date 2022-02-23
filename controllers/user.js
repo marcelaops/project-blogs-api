@@ -1,5 +1,5 @@
 const User = require('../services/user');
-const { unauthorized } = require('../utils/dictionaryStatusCode');
+const { unauthorized, noContent } = require('../utils/dictionaryStatusCode');
 
 // Req 1
 const create = async (req, res, next) => {
@@ -46,21 +46,22 @@ const findById = async (req, res, next) => {
 };
 
 // Req 12
-// remove = async (req, res, next) => {
-//   try {
-//     // const { id } = req.params;
-//     const data = await User.remove();
+const remove = async (req, res, next) => {
+  try {
+    const { id: userId } = req.user;
 
-//     return res.status(noContent).json(data);
-//   } catch (error) {
-//     console.log(`DELETE - delete user -> ${error.message}`);
-//     return next(error);
-//   }
-// };
+    await User.remove(userId);
+
+    return res.status(noContent).json();
+  } catch (error) {
+    console.log(`DELETE - delete user me -> ${error.message}`);
+    return next(error);
+  }
+};
 
 module.exports = { 
   create,
   getAll,
   findById,
-  // remove,
+  remove,
 };

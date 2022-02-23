@@ -51,15 +51,13 @@ const findById = async (id) => {
 };
 
 // Req 12
-// const remove = async (id) => {
-//   await User.destroy({ where: { id } });
-
-//   return true;
-// };
+const remove = async (id) => {
+  await User.destroy({ where: { id } });
+};
 
 module.exports = {
   create,
   getAll,
   findById,
-  // remove,
+  remove,
 };

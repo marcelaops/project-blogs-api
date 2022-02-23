@@ -25,7 +25,7 @@ app.get('/post/:id', verifyToken, Post.findById); // req9
 // app.put('/post/:id', verifyToken, Post.update); // req10
 
 app.delete('/post/:id', verifyToken, Post.remove); // req11
-// app.delete('/user/me', verifyToken, User.remove); // req12
+app.delete('/user/me', verifyToken, User.remove); // req12
 
 app.use(errorHandler);
 
