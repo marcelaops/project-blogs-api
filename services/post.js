@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const ErrorConstructor = require('../utils/ErrorConstructor');
-const { badRequest, ok } = require('../utils/dictionaryStatusCode');
+const { badRequest, ok, notFound } = require('../utils/dictionaryStatusCode');
 const { BlogPost, Category, User } = require('../models');
 
 const postSchema = Joi.object({
@@ -31,7 +31,7 @@ const create = async (userId, title, content, categoryIds) => {
   return data;
 };
 
-// Req 8 - reference: https://gist.github.com/zcaceres/83b554ee08726a734088d90d455bc566
+// Req 8 - Source: https://gist.github.com/zcaceres/83b554ee08726a734088d90d455bc566
 const getAll = async () => {
   const data = await BlogPost.findAll({ 
     include: [
@@ -43,7 +43,23 @@ const getAll = async () => {
   return { code: ok, data };
 };
 
+// Req 9
+const findById = async (id) => {
+  const data = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+  });
+
+  if (!data) throw new ErrorConstructor(notFound, 'Post does not exist');
+
+  return { code: ok, data };
+};
+
 module.exports = { 
   create,
   getAll,
+  findById,
 };
