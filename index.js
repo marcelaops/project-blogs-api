@@ -22,7 +22,10 @@ app.get('/categories', verifyToken, Category.getAll); // req6
 app.post('/post', verifyToken, Post.create); // req7
 app.get('/post', verifyToken, Post.getAll); // req8
 app.get('/post/:id', verifyToken, Post.findById); // req9
-// app.put('/post/:id', ); // req10
+// app.put('/post/:id', verifyToken, Post.update); // req10
+
+app.delete('/post/:id', verifyToken, Post.remove); // req11
+// app.delete('/user/me', verifyToken, User.remove); // req12
 
 app.use(errorHandler);
 

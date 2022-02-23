@@ -45,8 +45,22 @@ const findById = async (req, res, next) => {
   }
 };
 
+// Req 12
+// remove = async (req, res, next) => {
+//   try {
+//     // const { id } = req.params;
+//     const data = await User.remove();
+
+//     return res.status(noContent).json(data);
+//   } catch (error) {
+//     console.log(`DELETE - delete user -> ${error.message}`);
+//     return next(error);
+//   }
+// };
+
 module.exports = { 
   create,
   getAll,
   findById,
+  // remove,
 };

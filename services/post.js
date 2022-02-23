@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const ErrorConstructor = require('../utils/ErrorConstructor');
-const { badRequest, ok, notFound } = require('../utils/dictionaryStatusCode');
+const { badRequest, ok, notFound, unauthorized } = require('../utils/dictionaryStatusCode');
 const { BlogPost, Category, User } = require('../models');
 
 const postSchema = Joi.object({
@@ -8,6 +8,11 @@ const postSchema = Joi.object({
   content: Joi.required(),
   categoryIds: Joi.required(),
 });
+
+// const removePostSchema = Joi.object({
+//   title: Joi.required(),
+//   content: Joi.required(),
+// });
 
 // Req 7 - Ajuda monitor Eric
 const create = async (userId, title, content, categoryIds) => {
@@ -58,8 +63,31 @@ const findById = async (id) => {
   return { code: ok, data };
 };
 
+// Req 10
+// const update = async (id, title, content) => {
+//   const data = await BlogPost.updateOne({ id, title, content });
+
+//   return { code: ok, data };
+// };
+
+// Req 11
+const remove = async (id, userId) => {
+  const verifyPost = await BlogPost.findByPk(id);
+  // console.log('verifyPost service post', verifyPost);
+  // console.log('verifyPost.id service post', verifyPost.userId);
+
+  if (!verifyPost) throw new ErrorConstructor(notFound, 'Post does not exist');
+
+  const postId = verifyPost.userId;
+  if (postId !== userId) throw new ErrorConstructor(unauthorized, 'Unauthorized user');
+
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = { 
   create,
   getAll,
   findById,
+  // update,
+  remove,
 };

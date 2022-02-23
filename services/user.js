@@ -50,8 +50,16 @@ const findById = async (id) => {
   return { code: ok, data };
 };
 
+// Req 12
+// const remove = async (id) => {
+//   await User.destroy({ where: { id } });
+
+//   return true;
+// };
+
 module.exports = {
   create,
   getAll,
   findById,
+  // remove,
 };
