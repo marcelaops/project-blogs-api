@@ -1,8 +1,7 @@
 const Joi = require('joi');
-// const { Op } = require('sequelize');
 const ErrorConstructor = require('../utils/ErrorConstructor');
-const { badRequest } = require('../utils/dictionaryStatusCode');
-const { BlogPost, Category } = require('../models');
+const { badRequest, ok } = require('../utils/dictionaryStatusCode');
+const { BlogPost, Category, User } = require('../models');
 
 const postSchema = Joi.object({
   title: Joi.required(),
@@ -10,7 +9,7 @@ const postSchema = Joi.object({
   categoryIds: Joi.required(),
 });
 
-// Req 7
+// Req 7 - Ajuda monitor Eric
 const create = async (userId, title, content, categoryIds) => {
   const { error } = postSchema.validate({ title, content, categoryIds });
 
@@ -32,7 +31,19 @@ const create = async (userId, title, content, categoryIds) => {
   return data;
 };
 
+// Req 8 - reference: https://gist.github.com/zcaceres/83b554ee08726a734088d90d455bc566
+const getAll = async () => {
+  const data = await BlogPost.findAll({ 
+    include: [
+      { model: User, as: 'user', attributes: { exclude: 'password' } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+  ],
+  });
+
+  return { code: ok, data };
+};
+
 module.exports = { 
   create,
-  // getAll
+  getAll,
 };

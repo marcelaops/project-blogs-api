@@ -20,7 +20,7 @@ app.post('/categories', verifyToken, Category.create); // req5
 app.get('/categories', verifyToken, Category.getAll); // req6
 
 app.post('/post', verifyToken, Post.create); // req7
-// app.get('/post', ); // req8
+app.get('/post', verifyToken, Post.getAll); // req8
 // app.get('/post/:id', ); // req9
 // app.put('/post/:id', ); // req10
 

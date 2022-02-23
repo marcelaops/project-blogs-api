@@ -1,7 +1,7 @@
 const Post = require('../services/post');
 const { created } = require('../utils/dictionaryStatusCode');
-// Req 7
 
+// Req 7
 const create = async (req, res, next) => {
   try {
     const { title, content, categoryIds } = req.body;
@@ -17,7 +17,18 @@ const create = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const { code, data } = await Post.getAll();
+
+    return res.status(code).json(data);
+  } catch (error) {
+    console.log(`GET - get all users -> ${error.message}`);
+    return next(error);
+  }
+};
+
 module.exports = { 
   create,
-  // getAll,
+  getAll,
 };
