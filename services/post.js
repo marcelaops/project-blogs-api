@@ -67,30 +67,29 @@ const findById = async (id) => {
 
 // Req 10
 const update = async (id, reqUserId, reqBody) => {
-  const { title, content, categoryId } = reqBody;
+  const { title, content, categoryIds } = reqBody;
+  
+  if (categoryIds) throw new ErrorConstructor(badRequest, 'Categories cannot be edited');
+
   const { error } = removePostSchema.validate({ title, content });
-
   if (error) throw new ErrorConstructor(badRequest, error.message);
-
-  // erro aqui
-  if (categoryId) throw new ErrorConstructor(badRequest, 'Categories cannot be edited');
 
   const post = await findById(id);
   const postUserId = post.data.user.id;
-  // console.log('postUserId service', postUserId);
-
   if (reqUserId !== postUserId) throw new ErrorConstructor(unauthorized, 'Unauthorized user');
 
-  // erro aqui
   await BlogPost.update(
     { title, content },
-    {
-      where: { id },
-      include: [
-        { model: Category, as: 'categories', through: { attributes: [] } },
-      ],
-    },
+    { where: { id } },
   );
+  
+  const updatedPost = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ], 
+  });
+  return updatedPost;
 };
 
 // Req 11
