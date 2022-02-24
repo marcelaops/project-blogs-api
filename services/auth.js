@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const { unauthorized } = require('../utils/dictionaryStatusCode');
-// const { User } = require('../models');
 
 require('dotenv').config();
 
@@ -22,16 +21,7 @@ const verifyToken = async (req, res, next) => {
 
     if (!decoded) return res.status(unauthorized).json({ message: 'Expired or invalid token' });
     // console.log('decoded.user.email', decoded.user.email)
-    
-    // const { email } = decoded.user;
-    // console.log('decode.user auth', decoded.user);
-    // console.log('email auth', email);
-
-    // problema está  aqui
-    // const user = await User.findOne({ where: { email } });
-    // console.log('user auth', user);
-
-    // req.user = user;
+   
     req.user = decoded.user;
     // console.log('req.user veriFyToken', req.user);
     

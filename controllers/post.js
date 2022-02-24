@@ -47,9 +47,6 @@ const findById = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
-    // console.log('postId controller', postId);
-    // console.log('req.body controller', req.body);
-    // console.log('req.user', req.user);
     const { id: reqUserId } = req.user;
     // console.log('reqUserId controller', reqUserId);
 
