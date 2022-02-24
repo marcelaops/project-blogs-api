@@ -9,10 +9,10 @@ const postSchema = Joi.object({
   categoryIds: Joi.required(),
 });
 
-// const removePostSchema = Joi.object({
-//   title: Joi.required(),
-//   content: Joi.required(),
-// });
+const removePostSchema = Joi.object({
+  title: Joi.required(),
+  content: Joi.required(),
+});
 
 // Req 7 - Ajuda monitor Eric
 const create = async (userId, title, content, categoryIds) => {
@@ -58,17 +58,40 @@ const findById = async (id) => {
   ],
   });
 
+  // console.log('data post service', data);
+
   if (!data) throw new ErrorConstructor(notFound, 'Post does not exist');
 
   return { code: ok, data };
 };
 
 // Req 10
-// const update = async (id, title, content) => {
-//   const data = await BlogPost.updateOne({ id, title, content });
+const update = async (id, reqUserId, reqBody) => {
+  const { title, content, categoryId } = reqBody;
+  const { error } = removePostSchema.validate({ title, content });
 
-//   return { code: ok, data };
-// };
+  if (error) throw new ErrorConstructor(badRequest, error.message);
+
+  // erro aqui
+  if (categoryId) throw new ErrorConstructor(badRequest, 'Categories cannot be edited');
+
+  const post = await findById(id);
+  const postUserId = post.data.user.id;
+  // console.log('postUserId service', postUserId);
+
+  if (reqUserId !== postUserId) throw new ErrorConstructor(unauthorized, 'Unauthorized user');
+
+  // erro aqui
+  await BlogPost.update(
+    { title, content },
+    {
+      where: { id },
+      include: [
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    },
+  );
+};
 
 // Req 11
 const remove = async (id, userId) => {
@@ -88,6 +111,6 @@ module.exports = {
   create,
   getAll,
   findById,
-  // update,
+  update,
   remove,
 };

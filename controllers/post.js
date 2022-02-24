@@ -1,5 +1,5 @@
 const Post = require('../services/post');
-const { created, noContent } = require('../utils/dictionaryStatusCode');
+const { created, noContent, ok } = require('../utils/dictionaryStatusCode');
 
 // Req 7
 const create = async (req, res, next) => {
@@ -33,6 +33,7 @@ const getAll = async (req, res, next) => {
 const findById = async (req, res, next) => {
   try {
     const { id } = req.params;
+
     const { code, data } = await Post.findById(id);
 
     return res.status(code).json(data);
@@ -43,18 +44,23 @@ const findById = async (req, res, next) => {
 };
 
 // Req 10
-// const update = async (req, res, next) => {
-//   try {
-//     const { id: userId } = req.params;
-//     const { title, content } = req.body;
-//     const data = await Post.update(userId, title, content);
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    // console.log('postId controller', postId);
+    // console.log('req.body controller', req.body);
+    // console.log('req.user', req.user);
+    const { id: reqUserId } = req.user;
+    // console.log('reqUserId controller', reqUserId);
 
-//     return res.status(ok).json(data);
-//   } catch (error) {
-//     console.log(`PUT - update post by id -> ${error.message}`);
-//     return next(error);
-//   }
-// };
+    const data = await Post.update(id, reqUserId, req.body);
+
+    return res.status(ok).json(data);
+  } catch (error) {
+    console.log(`PUT - update post by id -> ${error.message}`);
+    return next(error);
+  }
+};
 
 // Req 11
 const remove = async (req, res, next) => {
@@ -76,6 +82,6 @@ module.exports = {
   create,
   getAll,
   findById,
-  // update,
+  update,
   remove,
 };
