@@ -2,7 +2,7 @@
 
 Projeto desenvolvido por mim durante o curso de Desenvolvimento Web na <a href="https://www.betrybe.com/">Trybe</a> para fins educacionais e divulgado publicamente como portfólio de aprendizado. 
 
----
+
 
 ## Habilidades
 
@@ -11,7 +11,7 @@ Nesse projeto, eu construir um back-end usando `ORM` com o pacote `sequelize` do
  - Construi endpoints para consumir os models que criados 
  - Fiz um `CRUD` com o `ORM`
 
----
+
 
 ## Rodando o projeto localmente
 
@@ -40,10 +40,11 @@ Instale as dependencias do projeto com o comando `npm install`:
 npm install
 ```
 
----
+
+
 
 ## Requisitos
---
+
 
 ### 1 - Sua aplicação deve ter o endpoint POST `/user`
 
@@ -208,7 +209,7 @@ npm install
 
 
 ## Requisitos Bônus
----
+
 
 ### 11 - Sua aplicação deve ter o endpoint DELETE `post/:id`
 
@@ -251,6 +252,6 @@ npm install
 
 - Caso nenhum **BlogPost** satisfaça a busca, retorne um array vazio.
 
----
 
+---
 #### Todos os direitos relativos a essa obra, como reprodução, alteração, distribuição comercialização, pertencem à <a href="https://www.betrybe.com/">Trybe</a> e só podem ser utilizados com sua autorização. 
