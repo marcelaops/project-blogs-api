@@ -1,4 +1,4 @@
-# Boas vindas ao repositório do Talker Manager!
+# Boas vindas ao repositório do Blogs API!
 
 Projeto desenvolvido por mim durante o curso de Desenvolvimento Web na <a href="https://www.betrybe.com/">Trybe</a> para fins educacionais e divulgado publicamente como portfólio de aprendizado. 
 
